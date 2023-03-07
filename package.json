@@ -1,0 +1,37 @@
+{
+  "name": "andthen",
+  "version": "1.0.0",
+  "description": "Share what's on your mind! And then some more. And then see others. And then some more!",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kabdomora/AndThen.git"
+  },
+  "keywords": [
+    "social",
+    "media",
+    "thoughts",
+    "expressions",
+    "express",
+    "yourself",
+    "friends"
+  ],
+  "author": "kabdomora",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kabdomora/AndThen/issues"
+  },
+  "homepage": "https://github.com/kabdomora/AndThen#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
