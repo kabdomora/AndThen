@@ -1,6 +1,6 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
-const { getRandomThought, getRandomUser, genRandomIndex } = require('./data');
+const { getRandomThought, getRandomUser, getRandomEmail, genRandomIndex } = require('./data');
 
 console.time('seeding');
 
@@ -11,26 +11,32 @@ connection.once('open', async () => {
     const users = [];
     const thoughts = [];
 
-    const createUser = (user) => {
+
+
+    const createUser = () => {
+
+        let userLength = Math.floor(Math.random(15));
+
         users.push({
-            username,
-            email,
+            username: getRandomUser(userLength),
+            email: getRandomEmail(userLength),
             friends: [users[genRandomIndex(users)]._id],
+            thoughts: [thoughts[genRandomIndex(thoughts)]._id],
         });
     };
 
-    for (let i = 0; i < 10; i++) {
-        const staticUser = getRandomThought();
+    let strings = Math.floor(Math.random(30));
 
+    for (let i = 0; i < strings; i++) {    
         thoughts.push({
-            thoughtText,
-            username: staticUser,            
+            thoughtText: getRandomThought(strings),
+            username: [users[genRandomIndex(users)].username],            
         });
     }
 
     await Thought.collection.insertMany(thoughts);
 
-    thoughts.forEach(() => makePost(getRandomUser(10)));
+    thoughts.forEach(() => createUser());
 
     await User.collection.insertMany(users);
 
