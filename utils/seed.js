@@ -1,47 +1,31 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
-const { getRandomThought, getRandomUser, getRandomEmail, genRandomIndex } = require('./data');
+const { getRandomThought, getRandomEmail, genRandomIndex, getRandomUsername } = require('./data');
 
-console.time('seeding');
+connection.on('error', (err) => err);
 
 connection.once('open', async () => {
+    console.log('connected');
     await User.deleteMany({});
-    await Thought.deleteMany({});
+    await Thought.deleteMany({});    
 
     const users = [];
-    const thoughts = [];
+    const thoughts = getRandomThought(5);  
 
-
-
-    const createUser = () => {
-
-        let userLength = Math.floor(Math.random(15));
+    for (let i = 0; i < 30; i++) {
 
         users.push({
-            username: getRandomUser(userLength),
-            email: getRandomEmail(userLength),
-            friends: [users[genRandomIndex(users)]._id],
+            username: getRandomUsername(Math.floor(Math.random()*15)),
+            email: getRandomEmail(Math.floor(Math.random()*15)),
             thoughts: [thoughts[genRandomIndex(thoughts)]._id],
-        });
-    };
-
-    let strings = Math.floor(Math.random(30));
-
-    for (let i = 0; i < strings; i++) {    
-        thoughts.push({
-            thoughtText: getRandomThought(strings),
-            username: [users[genRandomIndex(users)].username],            
-        });
+        }); 
     }
 
     await Thought.collection.insertMany(thoughts);
-
-    thoughts.forEach(() => createUser());
-
     await User.collection.insertMany(users);
 
     console.table(thoughts);
     console.table(users, ['username', 'email', '_id']);
-    console.timeEnd('seeding');
+    console.info('Seeding complete! 🌱');
     process.exit(0);
 });

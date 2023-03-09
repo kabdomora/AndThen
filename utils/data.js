@@ -1,32 +1,9 @@
 let domains = [
-    "gmail.com",
-    "hotmail.com",
-    "yahoo.com",
-    "ucla.edu",
+    "@gmail.com",
+    "@hotmail.com",
+    "@yahoo.com",
+    "@ucla.edu",
 ];
-
-const genRandomIndex = (arr) => Math.floor(Math.random() * arr.length);
-
-const getRandomUser = (userLength) => {
-    let username ='';
-
-    for (let i=0; i < userLength; i++) {
-            username += String.fromCharCode(Math.floor(Math.random()*26)+97);
-    }
-
-    return username;
-};
-
-const getRandomEmail = (userLength) => {
-    let email ='';
-    for (let i=0; i < userLength; i++) {
-        email += String.fromCharCode(Math.floor(Math.random()*26)+97);
-    }
-
-    email += Math.random(domains);
-
-    return email;
-};
 
 const phrases = [
     "The quick brown fox jumps over the lazy dog",
@@ -60,19 +37,53 @@ const phrases = [
     "One man's trash is another man's treasure",
     "Practice makes perfect",
     "Rome wasn't built in a day"
-  ];
+];
 
-const getRandomThought = () => {
-    let thought = '';    
+const thoughts = [];
 
-    return thought += `${phrases[genRandomIndex(phrases)]}`;
+const genRandomIndex = (arr) => Math.floor(Math.random() * arr.length);
+
+const getRandomUsername = (userLength) => {
+    let username ='';
+
+    for (let i=0; i < userLength; i++) {
+        username += String.fromCharCode(Math.floor(Math.random()*26)+97);
+    }
+    return `${username}`;
+};
+
+
+
+const getRandomThought = (strings) => {
+    for (let i = 0; i < strings; i++) {
+        
+        thoughts.push({
+            thoughtText: `${phrases[genRandomIndex(phrases)]}`,
+            username: `${getRandomUsername(Math.floor(Math.random()*15))}`,
+        }) 
+    }    
+
+    return thoughts;
     
 };
 
+const getRandomEmail = (userLength) => {
+    let email ='';
+    for (let i=0; i < userLength; i++) {
+        email += String.fromCharCode(Math.floor(Math.random()*26)+97);
+    }
+
+    email += [domains[genRandomIndex(domains)]];
+
+    return email;
+};
+
+
+
 module.exports = {
-    getRandomUser,
-    getRandomThought,
-    genRandomIndex,
+    getRandomThought,    
     getRandomEmail,
+    genRandomIndex,
+    getRandomUsername,
 };
   
