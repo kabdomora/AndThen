@@ -10,7 +10,7 @@ connection.once('open', async () => {
     await Thought.deleteMany({});    
 
     const users = [];
-    const thoughts = getRandomThought(Math.floor(Math.random()*30));  
+    const thoughts = getRandomThought(5);  
 
     for (let i = 0; i < 30; i++) {
 
