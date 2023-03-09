@@ -42,14 +42,14 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with this id!'})
-          : res.json({ message: 'Thought successfully deleted!'})
+          : res.json({ message: 'User successfully deleted!'})
       )
       .catch((err) => res.status(500).json(err));
   },
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { userId: req.params.friendId }}}, //this might be wrong. check when testing
+      { $pull: { friends: req.params.friendId }}, 
       { runValidators: true, new: true }
     )
       .then((user) => 
@@ -62,7 +62,7 @@ module.exports = {
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body }},
+      { $addToSet: { friends: req.params.friendId }},
       { runValidators: true, new: true }
     )
       .then((user) => 

@@ -62,7 +62,6 @@ const getRandomThought = (strings) => {
             username: `${getRandomUsername(Math.floor(Math.random()*15))}`,
         }) 
     }    
-
     return thoughts;
     
 };

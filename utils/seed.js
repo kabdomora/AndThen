@@ -10,14 +10,13 @@ connection.once('open', async () => {
     await Thought.deleteMany({});    
 
     const users = [];
-    const thoughts = getRandomThought(5);  
+    const thoughts = getRandomThought(Math.floor(Math.random()*30));  
 
     for (let i = 0; i < 30; i++) {
 
         users.push({
             username: getRandomUsername(Math.floor(Math.random()*15)),
             email: getRandomEmail(Math.floor(Math.random()*15)),
-            thoughts: [thoughts[genRandomIndex(thoughts)]._id],
         }); 
     }
 
